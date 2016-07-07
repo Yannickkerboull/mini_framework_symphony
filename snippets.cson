@@ -1,0 +1,116 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# https://atom.io/docs/latest/using-atom-basic-customization#cson
+
+'.js':
+  'console.info':
+    'prefix': 'info'
+    'body': 'console.info(${1:});'
+
+
+'.php':
+
+  ##    PHP
+  'debug':
+    'prefix': 'debug'
+    'body': '''
+      print '<pre>${1:\$${2:var}} => <br />';
+      print_r(${1:\$${2:var}});
+      print "</pre>";
+      print '<code><em>From class ' . __CLASS__ . ' in function ' . __FUNCTION__ . '() line ' . __LINE__ . ' in file ' . __FILE__ . '</em>.</code>';
+    '''
+  'array':
+    'prefix': 'array'
+    'body': 'array(${1:})'
+
+  ##    DRUPAL MISC
+  'dpm':
+    'prefix': 'dpm'
+  'dpr':
+    'prefix': 'dpr'
+    'body': 'dpr(${1:\$${2:var}}, \'${1:\$${2:var}}\');'
+  'drupal_set_message':
+    'prefix': 'dsm'
+    'body': 'dsm(${1:\$${2:var}}, \'${1:\$${2:var}}\');'
+  'kpr(get_defined_vars())':
+    'prefix': 'gdv'
+    'body': 'kpr(get_defined_vars());'
+  'kpr':
+    'prefix': 'kpr'
+    'body': 'kpr(${1:\$${2:var}}, \'${1:\$${2:var}}\');'
+  'kint':
+    'prefix': 'kint'
+    'body': 'kint(${1:});'
+  'user_has_role':
+    'prefix': 'user_has_role'
+    'body': 'user_has_role(${1:\$rid}, ${2:\$account = NULL});'
+  'user_role_load_by_name':
+    'prefix': 'user_role_load_by_name'
+    'body': 'user_role_load_by_name(${1:\$role_name});'
+
+  ##    DRUPAL ENTITTIES
+  'gpi':
+    'prefix': 'gpi'
+    'body': 'getPropertyInfo()'
+  'entity_metadata_wrapper':
+    'prefix': 'emw'
+    'body': '''entity_metadata_wrapper('${1:entity_type}', ${2:entity_object_or_id});'''
+  'EntityMetadataWrapperException':
+    'prefix': 'emwe'
+    'body': '''
+      try {
+        $node_wrapper = entity_metadata_wrapper('node', $node);
+        $price = $node_wrapper->field_product->field_price->value();
+      }
+      catch (EntityMetadataWrapperException $exc) {
+        watchdog(
+          '${1:\MODULE_NAME}',
+          'EntityMetadataWrapper exception in %function() <pre>@trace</pre>',
+          array('%function' => __FUNCTION__, '@trace' => $exc->getTraceAsString()),
+          WATCHDOG_ERROR
+        );
+      }
+      '''
+  ##    DRUPAL HOOKS
+  'hook_menu_alter':
+    'prefix': 'hook_menu_alter'
+    'body': '''
+      /**
+       * Implements hook_menu_alter().
+       * Alter the data being saved to the {menu_router} table after hook_menu is invoked.
+       */
+      function ${1:}_menu_alter(&$items) {
+
+        $items['${2:}'] = array(
+          'title' => '${3:}',
+          'page callback' => '${4:}',
+          'access callback' => TRUE,
+        );
+      }
+      '''
+
+'.twig' :
+  'curly bracets':
+    'prefix': '}'
+    'body': '{{ ${1:} }}'
+  'kint':
+    'prefix': 'k'
+    'body': '{{ kint(${1:}) }}'
